@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash \"/Users/thiagogomes/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin/ffb526c1-fe07-4312-b21c-6a07ae697b34/cc4f5e10-34ee-46a6-ab27-eb3f767f4e6b/skills/web-artifacts-builder/scripts/init-artifact.sh\" newsletter-palestra)",
+      "Bash(brew list:*)",
+      "Bash(command -v node)"
+    ]
+  }
+}

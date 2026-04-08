@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newsletter Exclusiva | Portal do Palestra</title>
+  <meta name="description" content="Receba notícias exclusivas do Palmeiras no seu e-mail. Concorra a camisas oficiais autografadas da SEP.">
+  <meta property="og:title" content="Newsletter Exclusiva | Portal do Palestra">
+  <meta property="og:description" content="Notícias exclusivas e concorra a camisas autografadas do Palmeiras. Grátis.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:        #63C3B5;
+      --teal-dim:    #4AA89A;
+      --teal-glow:   rgba(99,195,181,0.35);
+      --green:       #006437;
+      --green-mid:   #00854A;
+      --dark:        #07101A;
+      --dark-2:      #0C1C2C;
+      --white:       #F1F1F2;
+      --muted:       #7A909E;
+      --gold:        #C9A227;
+      --card-bg:     rgba(255,255,255,0.042);
+      --card-border: rgba(99,195,181,0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Background ─────────────────────────────── */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 15% 25%, rgba(0,100,55,0.28) 0%, transparent 55%),
+        radial-gradient(ellipse 55% 70% at 85% 75%, rgba(99,195,181,0.18) 0%, transparent 50%),
+        linear-gradient(160deg, #07101A 0%, #0C1C2C 50%, #071A10 100%);
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.14;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-a { width:600px; height:600px; background:var(--green);    top:-160px; left:-200px; animation:floatA 22s ease-in-out infinite; }
+    .orb-b { width:450px; height:450px; background:var(--teal);     bottom:-120px; right:-140px; animation:floatB 28s ease-in-out infinite; }
+    .orb-c { width:320px; height:320px; background:var(--green-mid); top:40%; right:5%; animation:floatC 19s ease-in-out infinite; }
+
+    @keyframes floatA { 0%,100%{transform:translate(0,0) scale(1)} 40%{transform:translate(70px,90px) scale(1.1)} 70%{transform:translate(-30px,50px) scale(0.95)} }
+    @keyframes floatB { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-90px,-70px) scale(1.12)} }
+    @keyframes floatC { 0%,100%{transform:translate(0,0)}          50%{transform:translate(50px,-90px)} }
+
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(99,195,181,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,195,181,0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+    }
+
+    /* ── Layout ──────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px 40px;
+    }
+
+    /* ── Header ──────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: rgba(99,195,181,0.08);
+      border: 1px solid rgba(99,195,181,0.28);
+      padding: 7px 18px;
+      border-radius: 100px;
+      margin-bottom: 30px;
+    }
+    .badge-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+      animation: blink 2.4s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.75)} }
+    .badge-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 22px;
+    }
+    .star { color: var(--gold); font-size: 15px; }
+
+    .headline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(42px, 8vw, 88px);
+      line-height: 0.93;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 26px;
+    }
+    .hl-white { color: var(--white); display: block; }
+    .hl-teal  { color: var(--teal);  display: block; }
+
+    .sub {
+      font-size: clamp(15px, 2vw, 18px);
+      font-weight: 400;
+      color: var(--muted);
+      max-width: 540px;
+      text-align: center;
+      line-height: 1.65;
+      margin-bottom: 52px;
+    }
+    .sub strong { color: var(--white); font-weight: 600; }
+
+    /* ── Card ────────────────────────────────────── */
+    .card {
+      width: 100%;
+      max-width: 560px;
+      background: var(--card-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 0 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    /* ── Benefits ────────────────────────────────── */
+    .benefits { list-style: none; margin-bottom: 34px; display: flex; flex-direction: column; gap: 13px; }
+
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--white);
+    }
+    .benefit-icon {
+      width: 38px; height: 38px;
+      border-radius: 11px;
+      background: rgba(99,195,181,0.09);
+      border: 1px solid rgba(99,195,181,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 17px;
+    }
+
+    /* ── Form ────────────────────────────────────── */
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+    .input-wrap {
+      flex: 1;
+      position: relative;
+    }
+    .input-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 15px;
+      pointer-events: none;
+    }
+    input[type="email"] {
+      width: 100%;
+      background: rgba(255,255,255,0.055);
+      border: 1.5px solid rgba(99,195,181,0.22);
+      border-radius: 14px;
+      padding: 16px 16px 16px 44px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+    input[type="email"]::placeholder { color: var(--muted); }
+    input[type="email"]:focus {
+      border-color: var(--teal);
+      background: rgba(99,195,181,0.07);
+      box-shadow: 0 0 0 3px rgba(99,195,181,0.12);
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dim) 100%);
+      color: var(--dark);
+      border: none;
+      border-radius: 14px;
+      padding: 16px 26px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      position: relative;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px var(--teal-glow); }
+    .btn:active { transform: translateY(0); }
+    .btn.loading { pointer-events: none; opacity: 0.75; }
+    .btn .btn-txt { transition: opacity 0.2s; }
+    .btn .spin-wrap {
+      display: none;
+      position: absolute;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn.loading .btn-txt { opacity: 0; }
+    .btn.loading .spin-wrap { display: flex; }
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2.5px solid rgba(7,16,26,0.3);
+      border-top-color: var(--dark);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .disclaimer {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 13px;
+    }
+
+    .error-box {
+      background: rgba(239,68,68,0.09);
+      border: 1px solid rgba(239,68,68,0.28);
+      color: #FCA5A5;
+      border-radius: 10px;
+      padding: 11px 15px;
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+    }
+    .error-box.show { display: block; }
+
+    /* ── Divider ─────────────────────────────────── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 30px 0;
+    }
+    .div-line { flex:1; height:1px; background: rgba(99,195,181,0.12); }
+    .div-txt { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ── Social proof ────────────────────────────── */
+    .proof { text-align: center; }
+    .avatars { display: flex; justify-content: center; margin-bottom: 10px; }
+    .av {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      border: 2px solid var(--dark);
+      margin-left: -7px;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .av:first-child { margin-left: 0; }
+    .av-1 { background: linear-gradient(135deg,#63C3B5,#006437); }
+    .av-2 { background: linear-gradient(135deg,#4AA89A,#00854A); }
+    .av-3 { background: linear-gradient(135deg,#006437,#0C1C2C); }
+    .av-4 { background: linear-gradient(135deg,#C9A227,#006437); }
+    .av-5 { background: linear-gradient(135deg,#63C3B5,#C9A227); }
+
+    .proof-txt { font-size: 13px; color: var(--muted); }
+    .proof-txt strong { color: var(--teal); }
+
+    /* ── Footer ──────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 24px 20px;
+      color: rgba(122,144,158,0.45);
+      font-size: 12px;
+    }
+    footer a { color: rgba(99,195,181,0.5); text-decoration: none; }
+    footer a:hover { color: var(--teal); }
+
+    /* ── Responsive ──────────────────────────────── */
+    @media (max-width: 500px) {
+      .form-row { flex-direction: column; }
+      .card { padding: 28px 18px; }
+      .headline { font-size: 52px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-layer"></div>
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+  <div class="grid-overlay"></div>
+
+  <main class="page">
+
+    <!-- Header -->
+    <div style="text-align:center; margin-bottom: 0;">
+      <div class="badge">
+        <div class="badge-dot"></div>
+        <span class="badge-label">Portal do Palestra · Newsletter</span>
+      </div>
+
+      <div class="stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        <span class="star">★</span>
+      </div>
+
+      <h1 class="headline">
+        <span class="hl-white">Seja o primeiro</span>
+        <span class="hl-teal">a saber de tudo</span>
+        <span class="hl-white">do Palmeiras</span>
+      </h1>
+
+      <p class="sub">
+        Notícias exclusivas, bastidores e análises táticas direto no seu e-mail —
+        e mais: <strong>concorra a camisas oficiais autografadas</strong> da Sociedade Esportiva Palmeiras.
+      </p>
+    </div>
+
+    <!-- Card -->
+    <div class="card">
+
+      <ul class="benefits">
+        <li class="benefit">
+          <div class="benefit-icon">⚡</div>
+          <span>Furos e bastidores antes de qualquer portal</span>
+        </li>
+        <li class="benefit">
+          <div class="benefit-icon">👕</div>
+          <span>Participe de <strong>sorteios de camisas autografadas</strong> da SEP</span>
+        </li>
+        <li class="benefit">
+          <div class="benefit-icon">📊</div>
+          <span>Análises táticas e dados exclusivos sobre o Verdão</span>
+        </li>
+      </ul>
+
+      <form id="form">
+        <div class="form-row">
+          <div class="input-wrap">
+            <span class="input-icon">✉</span>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="seu@email.com"
+              required
+              autocomplete="email"
+            >
+          </div>
+          <button type="submit" class="btn" id="btn">
+            <span class="btn-txt">Assinar Grátis</span>
+            <span class="spin-wrap"><div class="spinner"></div></span>
+          </button>
+        </div>
+        <div class="error-box" id="err">
+          Algo deu errado. <a href="https://oportaldopalestra.substack.com/subscribe" target="_blank" style="color:#FCA5A5;text-decoration:underline;">Clique aqui para se cadastrar diretamente</a>.
+        </div>
+        <p class="disclaimer">100% gratuito &nbsp;·&nbsp; Sem spam &nbsp;·&nbsp; Cancele quando quiser</p>
+      </form>
+
+      <div class="divider">
+        <div class="div-line"></div>
+        <div class="div-txt">Já fazem parte</div>
+        <div class="div-line"></div>
+      </div>
+
+      <div class="proof">
+        <div class="avatars">
+          <div class="av av-1">M</div>
+          <div class="av av-2">R</div>
+          <div class="av av-3">T</div>
+          <div class="av av-4">A</div>
+          <div class="av av-5">L</div>
+        </div>
+        <p class="proof-txt"><strong>+1.200 torcedores</strong> já recebem as notícias em primeira mão</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    © 2024 Portal do Palestra &nbsp;·&nbsp; Feito por e para torcedores do Verdão &nbsp;·&nbsp;
+    <a href="https://oportaldopalestra.substack.com" target="_blank">Substack</a>
+  </footer>
+
+  <script>
+    const form  = document.getElementById('form');
+    const email = document.getElementById('email');
+    const btn   = document.getElementById('btn');
+    const err   = document.getElementById('err');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const val = email.value.trim();
+      if (!val) return;
+
+      btn.classList.add('loading');
+      err.classList.remove('show');
+
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: val }),
+        });
+
+        if (res.ok) {
+          window.location.href = '/obrigado';
+        } else {
+          throw new Error('fail');
+        }
+      } catch (_) {
+        err.classList.add('show');
+        btn.classList.remove('loading');
+      }
+    });
+  </script>
+
+</body>
+</html>
