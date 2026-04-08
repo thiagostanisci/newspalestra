@@ -21,13 +21,10 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify({ email: email.trim().toLowerCase() }),
     });
 
-    // Substack returns 200 on success or already subscribed
-    if (response.ok || response.status === 409) {
-      return res.status(200).json({ ok: true });
-    }
+    const body = await response.text();
+    console.log('Substack status:', response.status, 'body:', body);
 
-    // Still redirect to obrigado on any non-fatal status
-    return res.status(200).json({ ok: true });
+    return res.status(200).json({ ok: true, substackStatus: response.status });
   } catch (err) {
     console.error('Substack subscribe error:', err);
     // Fail gracefully — send user to thank-you page anyway
